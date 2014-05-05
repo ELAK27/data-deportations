@@ -17,6 +17,8 @@ deps_m <- melt(deps)
 deps_m <- rename(deps_m, c(X1 = "Year", X2 = "Count"))
 View(deps_m)
 
+#Altogether, returns and removals:
+
 ggplot(deps_m, aes(value, Returns+Removals, fill = variable)) +
   geom_bar(stat = "identity") +
   xlab("Year") +
@@ -24,13 +26,20 @@ ggplot(deps_m, aes(value, Returns+Removals, fill = variable)) +
   ggtitle("Deportations from 1892 to 2012") + 
   guides(fill=FALSE)
 
------
-  Other attempts at plotting returns/removals separately:
-  
-ggplot(deps, aes(Year, fill = Returns+Removals) ) +
-  +   geom_bar(position = "stack")
+#Just removals:
 
-ggplot(deps_m, aes(Year, c("Returns","Removals"), fill = variable)) + 
-  geom_bar(stat = "identity") + 
-  xlab("Year") + 
-  ylab("Deportations")
+ggplot(deps_m, aes(value, Removals, fill = variable)) +
+  geom_bar(stat = "identity") +
+  xlab("Year") +
+  ylab("Deportations") +
+  ggtitle("Deportations from 1892 to 2012 (Removals)") + 
+  guides(fill=FALSE)
+
+#Just returns:
+
+ggplot(deps_m, aes(value, Returns, fill = variable)) +
+  geom_bar(stat = "identity") +
+  xlab("Year") +
+  ylab("Deportations") +
+  ggtitle("Deportations from 1892 to 2012 (Returns)") + 
+  guides(fill=FALSE)
